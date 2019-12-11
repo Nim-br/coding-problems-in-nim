@@ -1,7 +1,54 @@
-# coding-problems-in-nim
-Daily Coding Problem Questions solved using nimlang
-1. Given an array of numbers, return whether any two sums to K.
+# Problemas de codificação em Nim-lang
+
+Perguntas diárias sobre problemas de codificação resolvidas usando nimlang
+
+1. [Dado um matriz de números, retorne a soma do primeiro e ultimo elemento.](https://github.com/Nim-br/coding-problems-in-nim/blob/master/day1.nim)
+```
+# Dado um matriz de números, retorne a soma do primeiro e ultimo elemento.
+# Por exemplo, tempos [10, 15, 3, 7] and K of 17, resposta 10 + 7 é 17.
+
+let testArray = [10,15, 3,7]
+let K = 17
+
+proc anyTwoSumstoK [I,](arr: array[I,int], K: int): bool =
+
+    for loc_1,i in arr.pairs:
+        for loc_2,j in arr.pairs:
+            if (i + j == K) and (loc_1 != loc_2): return true
+    
+    return false
+
+echo anyTwoSumstoK(testArray,K)
+```
 2. Given an array of integers, return a new array such that each element at index i of the new array is the product of all the numbers in the original array except the one at i. Solve it without using division and in O(n) time.
+
+```
+import math
+
+var arr1 = [1,2,3,4,5]
+var arr2 =  [3,2,1]
+
+proc exclusiveProduct [S,](arr: array[S,int]): array[S,int] =
+
+    for loc,i in arr: result[loc] = 1
+    var
+        prodLeft = 1
+        prodRight = 1
+        len = arr.high
+        leftMult: int
+        rightMult: int
+
+    for i in 0..arr.high:
+        leftMult = arr[i]
+        rightMult = arr[len - i]
+        result[i] *= prodLeft
+        result[len - i] *= prodRight
+        prodLeft *= leftMult
+        prodRight *= rightMult
+
+echo repr exclusiveProduct(arr1)
+echo repr exclusiveProduct(arr2)
+```
 3. Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
 4. Given an array of integers, find the first missing positive integer in linear time and constant space. In other words, find the lowest positive integer that does not exist in the array. The array can contain duplicates and negative numbers as well.For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should give 3. You can modify the input array in-place.
 5. cons(a, b) constructs a pair, and car(pair) and cdr(pair) returns the first and last element of that pair. 
